@@ -7,7 +7,7 @@ class Role(Model):
     description = CharField(max_length=255)
 
     def __str__(self):
-        return f"{self.name} role"
+        return f'{self.name} role'
 
 
 class File(Model):
@@ -17,7 +17,7 @@ class File(Model):
     updated_at = DateField(auto_now=True)
 
     def __str__(self):
-        return f"{self.name} file"
+        return f'{self.name} file'
 
 
 class BankAccount(Model):
@@ -29,7 +29,7 @@ class BankAccount(Model):
     bank = CharField(max_length=10)
 
     def __str__(self):
-        return f"{self.bank} - {self.user} bank account"
+        return f'{self.bank} - {self.user} bank account'
 
 
 class PersonalData(Model):
@@ -50,7 +50,7 @@ class PersonalData(Model):
     comercial_email = EmailField()
 
     def __str__(self):
-        return f"{self.user.username} personal data"
+        return f'{self.user.username} personal data'
 
 
 class CustomField(Model):
@@ -59,7 +59,7 @@ class CustomField(Model):
     data_type = CharField(max_length=30)
 
     def __str__(self):
-        return f"{self.name} customfield"
+        return f'{self.name} customfield'
 
 
 class CustomFieldValue(Model):
@@ -72,4 +72,15 @@ class CustomFieldValue(Model):
     updated_at = DateField(auto_now=True)
 
     def __str__(self):
-        return f"{self.custom_field.name} of {self.user.username}"
+        return f'{self.custom_field.name} of {self.user.username}'
+
+
+class ForgotPassword(Model):
+    user = OneToOneField(User, on_delete=CASCADE, primary_key=True)
+    token = CharField(max_length=200, null=True, blank=True, unique=True)
+
+    created_date = DateTimeField(auto_now_add=True)
+    updated_date = DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.user.username} token: {self.token}'

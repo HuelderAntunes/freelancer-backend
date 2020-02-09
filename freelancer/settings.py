@@ -56,7 +56,8 @@ ROOT_URLCONF = 'freelancer.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),
+                 os.path.join(BASE_DIR, 'templates', 'email_templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -120,3 +121,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# MAIL
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = '572d141ff8e535'
+EMAIL_HOST_PASSWORD = '15e3c6a22ffdf9'
