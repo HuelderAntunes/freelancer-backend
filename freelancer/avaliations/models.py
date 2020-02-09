@@ -23,8 +23,8 @@ class AvaliationField(Model):
 
 class AvaliationValue(Model):
     avaliation = ForeignKey(Avaliation, on_delete=CASCADE)
-    avaliation_type = ForeignKey(AvaliationField, on_delete=CASCADE)
+    avaliation_field = ForeignKey(AvaliationField, on_delete=CASCADE)
     rank = IntegerField(null=False, blank=False)
 
     def __str__(self):
-        return f"{self.avaliation_type} of {self.avaliation.rated}"
+        return f"{self.avaliation_field} of {self.avaliation.rated}"
