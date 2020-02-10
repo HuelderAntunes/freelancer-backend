@@ -15,7 +15,7 @@ class Avaliation(Model):
 
 class AvaliationField(Model):
     name = CharField(null=False, blank=False, max_length=50)
-    description = CharField(max_length=255)
+    description = CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return f"{self.name} avaliation field"
