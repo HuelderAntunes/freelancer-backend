@@ -35,7 +35,7 @@ class BankAccount(Model):
 class PersonalData(Model):
     user = ForeignKey(User, on_delete=CASCADE, blank=True, null=True)
     role = ForeignKey(Role, on_delete=SET_NULL, null=True)
-    avatar = ForeignKey(File, on_delete=SET_NULL, null=True, blank=True, null=True)
+    avatar = ForeignKey(File, on_delete=SET_NULL, null=True, blank=True)
     birth_date = DateField(blank=True, null=True)
     cpf = CharField(max_length=20, blank=True, null=True)
     cnpj = CharField(max_length=50, blank=True, null=True)
@@ -66,11 +66,11 @@ class CustomField(Model):
 class CustomFieldValue(Model):
     custom_field = ForeignKey(CustomField, on_delete=SET_NULL, null=True)
     user = ForeignKey(User, on_delete=CASCADE)
-    date_value = DateTimeField(blank=True, null=True, blank=True, null=True)
+    date_value = DateTimeField(blank=True, null=True)
     text_value = CharField(max_length=255, blank=True, null=True)
-    number_value = FloatField(blank=True, null=True, blank=True, null=True)
+    number_value = FloatField(blank=True, null=True)
     created_at = DateField(auto_now_add=True)
-    updated_at = DateField(auto_now=True, )
+    updated_at = DateField(auto_now=True)
 
     def __str__(self):
         return f'{self.custom_field.name} of {self.user.username}'

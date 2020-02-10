@@ -3,6 +3,8 @@ from .views import *
 
 router = DefaultRouter()
 
-router.register(r'avaliationfields', AvaliationFieldViewSet, 'avaliation')
-router.register(r'avaliations', AvaliationViewSet, 'avaliation')
-router.register(r'avaliationvalues', AvaliationValueViewSet, 'avaliation')
+router.register(r'avaliationfields',
+                AvaliationFieldViewSet, 'avaliationfields')
+router.register(r'avaliations', AvaliationViewSet, 'avaliations')
+router.register(r'avaliationvalues',
+                AvaliationValueViewSet, 'avaliationvalues')
