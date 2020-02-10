@@ -1,10 +1,12 @@
 from django.shortcuts import render
+from django.contrib.auth.models import User, Group
 from rest_framework.decorators import action
 from uuid import uuid4
 import bcrypt
-from .serializers import ForgotPasswordSerializer, RecoverPasswordSerializer
-from .models import ForgotPassword
+from .serializers import *
+from .models import *
 from django.contrib.auth.admin import User
+from rest_framework import permissions
 from rest_framework.viewsets import ModelViewSet, GenericViewSet, ViewSet
 from rest_framework.response import Response
 from django.core.mail import EmailMultiAlternatives
@@ -79,3 +81,31 @@ def recover(self, request):
         except ForgotPassword.DoesNotExist:
             pass
     return Response({'error': 'Invalid fields.'})
+
+
+class UserViewSet(ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+
+
+class GroupViewSet(ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+
+
+class PersonalDataViewSet(ModelViewSet):
+    queryset = PersonalData.objects.all()
+    serializer_class = PersonalDataSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class BankAccountViewSet(ModelViewSet):
+    queryset = BankAccount.objects.all()
+    serializer_class = BankAccountSerializer
+    permission_classes = [permissions.IsAuthenticated]

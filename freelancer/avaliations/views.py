@@ -22,12 +22,12 @@ class AvaliationViewSet(ModelViewSet):
 
 
 class AvaliationValueViewSet(ModelViewSet):
-    model = AvaliationValue
+    queryset = AvaliationValue.objects.all()
     serializer_class = AvaliationValueSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
 class AvaliationFieldViewSet(ReadOnlyModelViewSet):
-    model = AvaliationField
+    queryset = AvaliationField.objects.all()
     serializer_class = AvaliationFieldSerializer
     permission_classes = [permissions.IsAuthenticated]
