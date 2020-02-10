@@ -4,20 +4,20 @@ from django.contrib.auth.admin import User
 
 class Role(Model):
     name = CharField(null=False, blank=False, max_length=50)
-    description = CharField(max_length=255)
+    description = CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return f'{self.name} role'
 
 
 class File(Model):
-    name = CharField(max_length=50)
+    name = CharField(max_length=50, blank=True, null=True)
     path = URLField(null=False, blank=False)
     created_at = DateField(auto_now_add=True)
     updated_at = DateField(auto_now=True)
 
     def __str__(self):
-        return f'{self.name} file'
+        return f'{self.path} file'
 
 
 class BankAccount(Model):
@@ -33,21 +33,22 @@ class BankAccount(Model):
 
 
 class PersonalData(Model):
-    user = ForeignKey(User, on_delete=CASCADE)
+    user = ForeignKey(User, on_delete=CASCADE, blank=True, null=True)
     role = ForeignKey(Role, on_delete=SET_NULL, null=True)
-    avatar = ForeignKey(File, on_delete=SET_NULL, null=True)
-    birth_date = DateField()
-    cpf = CharField(max_length=20)
-    cnpj = CharField(max_length=50)
-    rg = CharField(max_length=20)
-    address = CharField(max_length=255)
-    address_complement = CharField(max_length=255)
-    state = CharField(max_length=30)
-    country = CharField(max_length=30)
-    state_subscription = CharField(max_length=100)
-    civic_subscription = CharField(max_length=100)
-    phone = CharField(max_length=20)
+    avatar = ForeignKey(File, on_delete=SET_NULL, null=True, blank=True, null=True)
+    birth_date = DateField(blank=True, null=True)
+    cpf = CharField(max_length=20, blank=True, null=True)
+    cnpj = CharField(max_length=50, blank=True, null=True)
+    rg = CharField(max_length=20, blank=True, null=True)
+    address = CharField(max_length=255, blank=True, null=True)
+    address_complement = CharField(max_length=255, blank=True, null=True)
+    state = CharField(max_length=30, blank=True, null=True)
+    country = CharField(max_length=30, blank=True, null=True)
+    state_subscription = CharField(max_length=100, blank=True, null=True)
+    civic_subscription = CharField(max_length=100, blank=True, null=True)
+    phone = CharField(max_length=20, blank=True, null=True)
     comercial_email = EmailField()
+    fantasy_name = CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username} personal data'
@@ -55,8 +56,8 @@ class PersonalData(Model):
 
 class CustomField(Model):
     name = CharField(null=False, blank=False, max_length=50)
-    description = CharField(max_length=255)
-    data_type = CharField(max_length=30)
+    description = CharField(max_length=255, blank=True, null=True)
+    data_type = CharField(max_length=30, blank=True, null=True)
 
     def __str__(self):
         return f'{self.name} customfield'
@@ -65,11 +66,11 @@ class CustomField(Model):
 class CustomFieldValue(Model):
     custom_field = ForeignKey(CustomField, on_delete=SET_NULL, null=True)
     user = ForeignKey(User, on_delete=CASCADE)
-    date_value = DateTimeField()
-    text_value = CharField(max_length=255)
-    number_value = FloatField()
+    date_value = DateTimeField(blank=True, null=True, blank=True, null=True)
+    text_value = CharField(max_length=255, blank=True, null=True)
+    number_value = FloatField(blank=True, null=True, blank=True, null=True)
     created_at = DateField(auto_now_add=True)
-    updated_at = DateField(auto_now=True)
+    updated_at = DateField(auto_now=True, )
 
     def __str__(self):
         return f'{self.custom_field.name} of {self.user.username}'
